@@ -1,14 +1,14 @@
 {
-	"name": "generative-ai-for-beginners",
+	"name": "openhack-genai",
 	"version": "1.0.0",
-	"description": "Generative AI for Beginners - A Curriculum",
+	"description": "[OpenHack] Bezpieczne tworzenie aplikacji GenAI",
 	"main": "index.js",
 	"scripts": {
 		"convert": "node_modules/.bin/docsify-to-pdf"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/microsoft/generative-ai-for-beginners.git"
+		"url": "git+https://github.com/ProtopiaTech/openhack-genai.git"
 	},
 	"keywords": [
 		"generative",
@@ -18,9 +18,9 @@
 	"author": "Jim Bennett and team",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/microsoft/generative-ai-for-beginners/issues"
+		"url": "https://github.com/ProtopiaTech/openhack-genai.git/issues"
 	},
-	"homepage": "https://github.com/microsoft/generative-ai-for-beginners#readme",
+	"homepage": "https://github.com/ProtopiaTech/openhack-genai.git#readme",
 	"devDependencies": {
 		"docsify-to-pdf": "0.0.5"
 	},
