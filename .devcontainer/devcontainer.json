@@ -18,7 +18,8 @@
 				"ms-azuretools.vscode-azureresourcegroups",
 				"ms-azuretools.vscode-azureappservice",
 				"ms-azuretools.vscode-azurestorage",
-				"ms-vscode.azure-account"
+				"ms-vscode.azure-account",
+				"GitHub.copilot"
 			]
 		}
 	}
