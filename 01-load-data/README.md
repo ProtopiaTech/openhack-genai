@@ -8,7 +8,7 @@ Twoim zadaniem jest przygotowanie procesu ładowania danych do Azure AI Search o
 
 Podczas klasyfikacji użyj angielskich nazw w formacie przyjaznym dla programowania: `personal_data` dla "Dane osobowe", `private` dla "Prywatny", oraz `public` dla "Publiczny". W kolejnym zadaniu zespół skorzysta z Security Filters, aby ograniczyć dostęp do dokumentów na podstawie ich klasyfikacji.
 
-## Cele zadania:
+## Cele zadania
 
 1. **Konfiguracja indeksu**:
    - Stworzenie i skonfigurowanie indeksu w Azure AI Search, który będzie zawierał odpowiednie pola do przechowywania informacji o dokumentach oraz ich klasyfikacji.
