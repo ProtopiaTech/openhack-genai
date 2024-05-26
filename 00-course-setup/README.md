@@ -6,7 +6,7 @@ Całość zadań będzie realizowana w opaerciu o Github Codespaces oraz narzęd
 
 Wykonaj [forka](https://github.com/microsoft/generative-ai-for-beginners/fork?WT.mc_id=academic-105485-koreyst) tego repozytrium na swoim koncie Github.
 
-# 1. Urochomienie Codespaces
+# 2. Urochomienie Codespaces
 
 Aby uniknąć problemów z narzędziami podczas uruchamiania kodu, zalecamy uruchomienie zadań w GitHub Codespaces.
 
@@ -14,7 +14,7 @@ Można to zrobić, wybierając opcję Code w w utworzonym w poprzednim kroku rep
 
 ![Codespaces](assets/codespaces-run.png)
 
-# 1. Logowanie do Azure
+# 3. Logowanie do Azure
 
 Po uruchomieniu Codespaces w dolnym oknie Terminal wykonaj następujące polecenie Azure CLI[^1]:
 
@@ -25,7 +25,7 @@ az login --use-device-code
 W oknie przeglądarki wejdź na następujący adres [https://microsoft.com/devicelogin](https://microsoft.com/devicelogin), wklej wygenerowany w Terminalu kod i zaloguj się używając loginu oraz hasła podanego przez prowadzących.
 Nie zamykaj okna Terminalu i przejdź do następnego kroku.
 
-# 1. Stwórz instancje usługi Azure OpenAI
+# 4. Stwórz instancje usługi Azure OpenAI
 
 Sprawdź nazwę grupy zasobów, na której będziesz wykonywać wdrożenie:
 
@@ -37,7 +37,7 @@ Nazwę grupy zasobów znajdziesz w polu "name" w wyświetlonym JSON. Wykonaj nas
 
 ```bash
 RESOURCE_GROUP='twoja-grupa-zasobów'
-LOCATION='swedencentral'
+LOCATION='francecentral'
 
 az cognitiveservices account create \
   --name "$RESOURCE_GROUP"-oai \
@@ -65,7 +65,7 @@ az cognitiveservices account keys list \
 > [!TIP]
 > Poprawne przechowywanie kluczy do API jest niezwykle istotne z punktu widzenia bezpieczeństwa Twojego rozwiązania. W związku z tym, że będziesz pracował(a) na publicznym repozytorium, nigdy nie zapisuj w kodzie kluczy ani haseł.
 
-# 1. Stworz konto Azure Storgae
+# 5. Stworz konto Azure Storgae
 
 ```bash
 # Generate a random storage account name (must be unique, lowercase, 24 characters or less)
@@ -90,7 +90,7 @@ az storage container create \
     --auth-mode login
 ```
 
-# 1. Stwórz instancję usługi Azure AI Search
+# 6. Stwórz instancję usługi Azure AI Search
 
 Stwórz instancję Azure AI Search w oparciu o poniższy skrypt.
 
