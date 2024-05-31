@@ -59,10 +59,10 @@ def list_blobs(account_name, container_name, credential):
     pass
 ```
 
-> [!TIP]
->
-> - [Azure Identity client library for Python](https://learn.microsoft.com/en-us/python/api/overview/azure/identity-readme?view=azure-python#authenticate-with-defaultazurecredential)
-> - [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch)
+##### Tips & tricks
+
+- [Azure Identity client library for Python](https://learn.microsoft.com/en-us/python/api/overview/azure/identity-readme?view=azure-python#authenticate-with-defaultazurecredential)
+- [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch)
 
 #### Funkcja `get_blob_content`
 
@@ -82,9 +82,9 @@ def get_blob_content(account_name, container_name, blob_name, credential):
     pass
 ```
 
-> [!TIP]
->
-> - [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch#download-blobs)
+##### Tips & tricks
+
+- [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch#download-blobs)
 
 #### Funkcja `save_blob_to_temp_file`
 
@@ -101,9 +101,9 @@ def save_blob_to_temp_file(blob_content):
     pass
 ```
 
-> [!TIP]
->
-> - Użyj gotowej metody `tempfile.NamedTemporaryFile`.
+##### Tips & tricks
+
+- Użyj gotowej metody `tempfile.NamedTemporaryFile`.
 
 #### Funkcja `get_file_classification`
 
@@ -122,33 +122,32 @@ def get_file_classification(credential, file_path):
     pass
 ```
 
-> [!TIP]
->
-> - Użyj [langchain](https://www.langchain.com/)
-> - Do pracy musisz wdrozyc model na swojej instacji OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
-> - Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce).
-> - Do łączenia się z Azure OpenAI użyj uwierzytelniania z Azure AD:
->
-> ```python
->
-> token_provider = get_bearer_token_provider(
->   credential, "https://cognitiveservices.azure.com/.default"
-> )
-> llm = AzureChatOpenAI(
->   openai_api_version=os.environ["AZURE_OPENAI_API_VERSION"],
->   azure_deployment=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
->   azure_ad_token_provider=token_provider
-> )
-> ```
->
-> - [AzureChatOpenAI](https://python.langchain.com/v0.2/docs/integrations/chat/azure_chat_openai/)
-> - [AzureChatOpenAI Lib](https://api.python.langchain.com/en/latest/chat_models/langchain_openai.chat_models.azure.AzureChatOpenAI.html)
-> - [Azure Active Directory Authentication](https://python.langchain.com/v0.2/docs/integrations/llms/azure_openai/#azure-active-directory-authentication)
-> - Pisząc prompt dla funkcji Map, poinstruuj, aby LLM dokonał klasyfikacji dokumentów. Podaj, co ma zrobić, jeśli nie będzie wiedział, jak sklasyfikować dokument.
-> - Pisząc prompt dla funkcji Reduce, określ kolejność klasyfikacji, czyli która ma najwyższy priorytet.
-> - [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering)
-> - [Prompt engineering techniques](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions)
-> - [System message framework and template recommendations for Large Language Models (LLMs)](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/system-message)
+##### Tips & tricks
+
+- Użyj [langchain](https://www.langchain.com/)
+- Do pracy musisz wdrozyc model na swojej instacji OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
+- Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce).
+- Do łączenia się z Azure OpenAI użyj uwierzytelniania z Azure AD:
+  
+  ```python
+  token_provider = get_bearer_token_provider(
+    credential, "https://cognitiveservices.azure.com/.default"
+  )
+  llm = AzureChatOpenAI(
+    openai_api_version=os.environ["AZURE_OPENAI_API_VERSION"],
+    azure_deployment=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+    azure_ad_token_provider=token_provider
+  )
+  ```
+
+- [AzureChatOpenAI](https://python.langchain.com/v0.2/docs/integrations/chat/azure_chat_openai/)
+- [AzureChatOpenAI Lib](https://api.python.langchain.com/en/latest/chat_models/langchain_openai.chat_models.azure.AzureChatOpenAI.html)
+- [Azure Active Directory Authentication](https://python.langchain.com/v0.2/docs/integrations/llms/azure_openai/#azure-active-directory-authentication)
+- Pisząc prompt dla funkcji Map, poinstruuj, aby LLM dokonał klasyfikacji dokumentów. Podaj, co ma zrobić, jeśli nie będzie wiedział, jak sklasyfikować dokument.
+- Pisząc prompt dla funkcji Reduce, określ kolejność klasyfikacji, czyli która ma najwyższy priorytet.
+- [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering)
+- [Prompt engineering techniques](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions)
+- [System message framework and template recommendations for Large Language Models (LLMs)](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/system-message)
 
 #### Funkcja `add_document_to_vector_store`
 
@@ -169,6 +168,8 @@ def add_document_to_vector_store(vector_store, file_path, data_classification, t
     pass
 ```
 
+##### Tips & tricks
+
 #### Funkcja `move_blob`
 
 - **Opis**: Ta funkcja przenosi bloba do nowego kontenera lub katalogu na podstawie klasyfikacji.
@@ -187,6 +188,22 @@ def move_blob(account_name, container_name, data_classification, blob_name, cred
     pass
 ```
 
+##### Tips & tricks
+
+- Wykorzystaj funkcję `start_copy_from_url` w ramach [BlobClient Class]https://learn.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.blobclient?view=azure-python).
+- Po przeniesieniu skasuj źrdółowy blob - `delete_blob` w ramach BlobClient.
+- Poczekaj na skopiowanie blob'a.
+  ```python
+  destination_blob_client.start_copy_from_url(source_blob_client.url)
+  props = destination_blob_client.get_blob_properties()
+  while props.copy.status == "pending":
+    props = destination_blob_client.get_blob_properties()
+   
+  if props.copy.status != "success":
+    raise Exception(f"Copy failed with status: {props.copy.status}")
+  source_blob_client.delete_blob()
+  ```
+
 ## Przydatne informacje
 
 ### Skrypt upload.sh
@@ -200,7 +217,7 @@ Przykładowy plik `.env` powinien zawierać następujące informacje:
 ```bash
 STORAGE_ACCOUNT_NAME=""
 STORAGE_CONTAINER_NAME_IN="data-in"
-AZURE_OPENAI_API_VERSION='2023-12-01-preview' # Default is set!
+AZURE_OPENAI_API_VERSION="2023-12-01-preview"
 AZURE_OPENAI_ENDPOINT=""
 AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=""
 AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT=""
