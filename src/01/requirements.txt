@@ -1,0 +1,9 @@
+azure-storage-blob
+azure-identity
+pypdf
+langchain
+langchain-core
+langchain-community
+python-dotenv
+langchain-openai
+azure-search-documents
