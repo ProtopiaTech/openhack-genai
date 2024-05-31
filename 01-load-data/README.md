@@ -228,6 +228,7 @@ def add_document_to_vector_store(vector_store, file_path, data_classification, t
   ```python
   source=f"https://{account_name}.blob.core.windows.net/{data_classification}/{blob.name}"
   ```
+- Ładowanie PDF w LangChain - [How to load PDFs - Using PyPDF](https://python.langchain.com/v0.2/docs/how_to/document_loader_pdf/#using-pypdf). Ładując zamist `pages` użyj zmiennej `docs`.
 
 #### Funkcja `move_blob`
 
