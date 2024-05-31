@@ -58,6 +58,7 @@ def get_vector_store(connection_string, index_name):
 
 ##### Tips & tricks
 
+- [Azure Identity client library for Python](https://learn.microsoft.com/en-us/python/api/overview/azure/identity-readme?view=azure-python#authenticate-with-defaultazurecredential)
 - Utwórz model typu embedding (`text-embedding-3-large`) w Azure OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
 - Użycie [Azure AI Search w langchain](https://python.langchain.com/v0.2/docs/integrations/vectorstores/azuresearch/)
 - [API langchain dla AI Serach](https://api.python.langchain.com/en/latest/vectorstores/langchain_community.vectorstores.azuresearch.AzureSearch.html#langchain_community.vectorstores.azuresearch.AzureSearch)
@@ -146,7 +147,7 @@ def save_blob_to_temp_file(blob_content):
 
 #### Funkcja `get_file_classification`
 
-- **Opis**: Ta funkcja klasyfikuje dokument jako "personal-data", "private" lub "public".
+- **Opis**: Ta funkcja klasyfikuje dokument jako `personal-data`, `private` lub `public`.
 - **Argumenty wejściowe**:
   - `credential`: Poświadczenia do uwierzytelnienia.
   - `file_path`: Ścieżka do pliku PDF.
@@ -207,6 +208,23 @@ def add_document_to_vector_store(vector_store, file_path, data_classification, t
     pass
 ```
 
+##### Tips & tricks
+
+- Użycie [Azure AI Search w langchain](https://python.langchain.com/v0.2/docs/integrations/vectorstores/azuresearch/)
+- [API langchain dla AI Serach](https://api.python.langchain.com/en/latest/vectorstores/langchain_community.vectorstores.azuresearch.AzureSearch.html#langchain_community.vectorstores.azuresearch.AzureSearch)
+- Uzupełnienie dodatkowych pól w indeksie (`metadata`, `title`, `source`, `data_classification`). Jest to słabo udokumentowane.
+  ```python
+  for doc in docs:
+    doc.metadata["data_classification"] = data_classification
+    doc.metadata["title"] = title
+    doc.metadata["source"] = source
+  ```
+- Jako `title` ustaw nazwę pliku w blob
+- Jako `source` przygotuj url do blob w nowej lokalizacji po przeprocesowaniu.
+  ```python
+  source=f"https://{account_name}.blob.core.windows.net/{data_classification}/{blob.name}"
+  ```
+
 #### Funkcja `move_blob`
 
 - **Opis**: Ta funkcja przenosi bloba do nowego kontenera lub katalogu na podstawie klasyfikacji.
@@ -224,6 +242,22 @@ def move_blob(account_name, container_name, data_classification, blob_name, cred
     # Logika przenoszenia bloba w Azure Blob Storage
     pass
 ```
+
+#### Tips & tricks
+
+- Do przeniesienia wykorzystaj `start_copy_from_url` z [BlobClient](https://learn.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.blobclient?view=azure-python)
+- Po skopiowaniu skasuj `delete_blob()` korzystając z `BlobClient`.
+- Poczekaj na skopiowanie pliku przed kasowaniem.
+
+  ```python
+  destination_blob_client.start_copy_from_url(source_blob_client.url)
+  props = destination_blob_client.get_blob_properties()
+  while props.copy.status == "pending":
+    props = destination_blob_client.get_blob_properties()
+  if props.copy.status != "success":
+    raise Exception(f"Copy failed with status: {props.copy.status}")
+  source_blob_client.delete_blob()
+  ```
 
 ## Przydatne informacje
 
