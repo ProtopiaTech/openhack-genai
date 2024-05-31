@@ -120,7 +120,8 @@ def get_file_classification(credential, file_path):
 ##### Tips & tricks
 
 - Użyj [langchain](https://www.langchain.com/)
-- Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce)\
+- Do pracy musisz wdrozyc model na swojej instacji OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
+- Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce).
 - Do łączenia się z Azure OpenAI użyj uwierzytelniania z Azure AD:
   
   ```python
@@ -134,9 +135,15 @@ def get_file_classification(credential, file_path):
   )
   ```
 
-  - [AzureChatOpenAI](https://python.langchain.com/v0.1/docs/integrations/chat/azure_chat_openai/)
-  - [Azure Active Directory Authentication](https://python.langchain.com/v0.1/docs/integrations/llms/azure_openai/#azure-active-directory-authentication)
+  - [AzureChatOpenAI](https://python.langchain.com/v0.2/docs/integrations/chat/azure_chat_openai/)
+  - [AzureChatOpenAI Lib](https://api.python.langchain.com/en/latest/chat_models/langchain_openai.chat_models.azure.AzureChatOpenAI.html)
+  - [Azure Active Directory Authentication](https://python.langchain.com/v0.2/docs/integrations/llms/azure_openai/#azure-active-directory-authentication)
 
+- Pisząc prompt dla funkcji Map, poinstruuj, aby LLM dokonał klasyfikacji dokumentów. Podaj, co ma zrobić, jeśli nie będzie wiedział, jak sklasyfikować dokument.
+- Pisząc prompt dla funkcji Reduce, określ kolejność klasyfikacji, czyli która ma najwyższy priorytet.
+- [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering)
+- [Prompt engineering techniques](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions)
+- [System message framework and template recommendations for Large Language Models (LLMs)](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/system-message)
 
 
 #### Funkcja `add_document_to_vector_store`
