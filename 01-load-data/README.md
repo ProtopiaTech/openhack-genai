@@ -61,6 +61,7 @@ def list_blobs(account_name, container_name, credential):
 - [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch)
 
 #### Funkcja `get_blob_content`
+
 - **Opis**: Ta funkcja zwraca zawartość określonego bloba.
 - **Argumenty wejściowe**:
   - `account_name`: Nazwa konta Azure Storage.
@@ -100,6 +101,7 @@ def save_blob_to_temp_file(blob_content):
 
 
 #### Funkcja `get_file_classification`
+
 - **Opis**: Ta funkcja klasyfikuje dokument jako "personal-data", "private" lub "public".
 - **Argumenty wejściowe**:
   - `credential`: Poświadczenia do uwierzytelnienia.
@@ -138,6 +140,7 @@ def get_file_classification(credential, file_path):
 
 
 #### Funkcja `add_document_to_vector_store`
+
 - **Opis**: Ta funkcja dodaje dokument do Azure AI Search z odpowiednią klasyfikacją.
 - **Argumenty wejściowe**:
   - `vector_store`: Instancja sklepu wektorowego.
@@ -156,6 +159,7 @@ def add_document_to_vector_store(vector_store, file_path, data_classification, t
 ```
 
 #### Funkcja `move_blob`
+
 - **Opis**: Ta funkcja przenosi bloba do nowego kontenera lub katalogu na podstawie klasyfikacji.
 - **Argumenty wejściowe**:
   - `account_name`: Nazwa konta Azure Storage.
