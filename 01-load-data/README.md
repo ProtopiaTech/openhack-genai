@@ -170,6 +170,7 @@ def get_file_classification(credential, file_path):
 - Użyj [langchain](https://www.langchain.com/)
 - Do pracy musisz wdrozyc model na swojej instacji OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
 - Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce).
+- Ładowanie PDF w LangChain - [How to load PDFs - Using PyPDF](https://python.langchain.com/v0.2/docs/how_to/document_loader_pdf/#using-pypdf). Ładując zamist `pages` użyj zmiennej `docs`.
 - Do łączenia się z Azure OpenAI użyj uwierzytelniania z Azure AD:
   
   ```python
