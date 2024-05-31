@@ -25,7 +25,7 @@ Po przeprocesowaniu dokumentów, należy je przenieść do odpowiednich kontener
 
 ## Jak można to zaimplementować?
 
-> # Użyj [langchain](https://www.langchain.com/) do realizacji zadania.
+> ## Użyj  [langchain](https://www.langchain.com/) do realizacji zadania
 
 ### Logika główna
 
