@@ -74,6 +74,7 @@ def get_vector_store(connection_string, index_name):
     fields=fields
   )
   ```
+- `azure_search_key=None` wymusza logowanie z Azure AD.
 - Tworzenie embeddings z wykorzystaniem Azure AD
 
   ```python
