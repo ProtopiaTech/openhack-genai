@@ -11,12 +11,10 @@ Po przeprocesowaniu dokumentów, należy je przenieść do odpowiednich kontener
 ## Cele zadania
 
 1. **Konfiguracja indeksu**:
-
    - Stworzenie i skonfigurowanie indeksu w Azure AI Search, który będzie zawierał odpowiednie pola do przechowywania informacji o dokumentach oraz ich klasyfikacji.
    - Dodanie pola typu "filterable" do indeksu, które będzie przechowywało informacje o klasyfikacji dokumentu.
 
 2. **Załadowanie dokumentów i klasyfikacja**:
-
    - Przygotowanie procesu ładowania plików PDF do Azure AI Search.
    - Klasyfikacja każdego dokumentu na podstawie jego treści jako "Dane osobowe", "Prywatny" lub "Publiczny".
    - Zapisanie klasyfikacji w polu typu "filterable" podczas ładowania dokumentów do Azure AI Search.
@@ -32,7 +30,6 @@ Po przeprocesowaniu dokumentów, należy je przenieść do odpowiednich kontener
 Aby zaimplementować proces ładowania danych do Azure AI Search oraz ich klasyfikację, należy wykonać kilka kroków:
 
 1. **Stworzenie i konfiguracja indeksu**:
-
    - Skonfigurować indeks w Azure AI Search z odpowiednimi polami, w tym polem "filterable" do przechowywania klasyfikacji dokumentów.
 
 2. **Ładowanie i klasyfikacja dokumentów**:
@@ -42,8 +39,52 @@ Aby zaimplementować proces ładowania danych do Azure AI Search oraz ich klasyf
 
 ### Funkcje do zaimplementowania
 
-#### Funkcja `list_blobs`
+#### Funkcja `get_vector_store`
 
+- **Opis**: Ta funkcja konfiguruje i zwraca indeks wektorowy Azure AI Search, który może być używany do wyszukiwania wektorowego i filtrowania dokumentów.
+- **Argumenty wejściowe**:
+  - `connection_string`: Connection string do Azure AI Search.
+  - `index_name`: Nazwa indeksu, który ma zostać utworzony lub użyty.
+- **Zadania**:
+  - Utworzenie klienta indeksu Azure AI Search.
+  - Konfiguracja indeksu z odpowiednimi polami, w tym pola typu "filterable" do przechowywania klasyfikacji dokumentów.
+  - Zwrócenie skonfigurowanego klienta indeksu do dalszego użycia.
+
+```python
+def get_vector_store(connection_string, index_name):
+    # Logika tworzenia i konfigurowania indeksu wektorowego w Azure AI Search
+    pass
+```
+
+##### Tips & tricks
+
+- Utwórz model typu embedding ()
+- Użycie [Azure AI Search w langchain](https://python.langchain.com/v0.2/docs/integrations/vectorstores/azuresearch/)
+- [API langchain dla AI Serach](https://api.python.langchain.com/en/latest/vectorstores/langchain_community.vectorstores.azuresearch.AzureSearch.html#langchain_community.vectorstores.azuresearch.AzureSearch)
+- Uwierzytelnianie z wykorzystaniem Azure AD
+  ```python
+  vector_store: AzureSearch = AzureSearch(
+    azure_search_endpoint=os.getenv("AZURE_AI_SEARCH_ENDPOINT"),
+    azure_search_key=None,
+    index_name=index_name,
+    embedding_function=embeddings.embed_query,
+    fields=fields
+  )
+  ```
+- Tworzenie embeddings z wykorzystaniem Azure AD
+
+  ```python
+  embeddings: AzureOpenAIEmbeddings = AzureOpenAIEmbeddings(
+    azure_deployment=os.getenv("AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT"),
+    openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    azure_ad_token_provider=token_provider
+  )
+  ```
+
+- Utwórz własny indeks z korzystając z domyślmych pól (`id`,`content`,`content_vector`,`metadata`,`title`,`source`) oraz dodaj własne na potrzeby  `data_classification`. [Create a new index with custom filterable fields](https://python.langchain.com/v0.2/docs/integrations/vectorstores/azuresearch/#create-a-new-index-with-custom-filterable-fields)
+
+#### Funkcja `list_blobs`
 - **Opis**: Ta funkcja zwraca listę blobów w kontenerze.
 - **Argumenty wejściowe**:
   - `account_name`: Nazwa konta Azure Storage.
@@ -81,13 +122,11 @@ def get_blob_content(account_name, container_name, blob_name, credential):
     # Logika pobierania zawartości bloba
     pass
 ```
-
 ##### Tips & tricks
 
 - [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch#download-blobs)
 
 #### Funkcja `save_blob_to_temp_file`
-
 - **Opis**: Ta funkcja zapisuje zawartość bloba do tymczasowego pliku.
 - **Argumenty wejściowe**:
   - `blob_content`: Zawartość bloba.
@@ -168,8 +207,6 @@ def add_document_to_vector_store(vector_store, file_path, data_classification, t
     pass
 ```
 
-##### Tips & tricks
-
 #### Funkcja `move_blob`
 
 - **Opis**: Ta funkcja przenosi bloba do nowego kontenera lub katalogu na podstawie klasyfikacji.
@@ -188,22 +225,6 @@ def move_blob(account_name, container_name, data_classification, blob_name, cred
     pass
 ```
 
-##### Tips & tricks
-
-- Wykorzystaj funkcję `start_copy_from_url` w ramach [BlobClient Class]https://learn.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.blobclient?view=azure-python).
-- Po przeniesieniu skasuj źrdółowy blob - `delete_blob` w ramach BlobClient.
-- Poczekaj na skopiowanie blob'a.
-  ```python
-  destination_blob_client.start_copy_from_url(source_blob_client.url)
-  props = destination_blob_client.get_blob_properties()
-  while props.copy.status == "pending":
-    props = destination_blob_client.get_blob_properties()
-   
-  if props.copy.status != "success":
-    raise Exception(f"Copy failed with status: {props.copy.status}")
-  source_blob_client.delete_blob()
-  ```
-
 ## Przydatne informacje
 
 ### Skrypt upload.sh
@@ -219,7 +240,7 @@ STORAGE_ACCOUNT_NAME=""
 STORAGE_CONTAINER_NAME_IN="data-in"
 AZURE_OPENAI_API_VERSION="2023-12-01-preview"
 AZURE_OPENAI_ENDPOINT=""
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=""
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME="" 
 AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT=""
 AZURE_AI_SEARCH_ENDPOINT=""
 ```
