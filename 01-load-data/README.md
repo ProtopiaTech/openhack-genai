@@ -115,6 +115,28 @@ def get_file_classification(credential, file_path):
     pass
 ```
 
+##### Tips & tricks
+
+- Użyj [langchain](https://www.langchain.com/)
+- Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce)\
+- Do łączenia się z Azure OpenAI użyj uwierzytelniania z Azure AD:
+  
+  ```python
+  token_provider = get_bearer_token_provider(
+    credential, "https://cognitiveservices.azure.com/.default"
+  )
+  llm = AzureChatOpenAI(
+    openai_api_version=os.environ["AZURE_OPENAI_API_VERSION"],
+    azure_deployment=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+    azure_ad_token_provider=token_provider
+  )
+  ```
+
+  - [AzureChatOpenAI](https://python.langchain.com/v0.1/docs/integrations/chat/azure_chat_openai/)
+  - [Azure Active Directory Authentication](https://python.langchain.com/v0.1/docs/integrations/llms/azure_openai/#azure-active-directory-authentication)
+
+
+
 #### Funkcja `add_document_to_vector_store`
 - **Opis**: Ta funkcja dodaje dokument do Azure AI Search z odpowiednią klasyfikacją.
 - **Argumenty wejściowe**:
