@@ -46,8 +46,8 @@ Aby zaimplementować proces ładowania danych do Azure AI Search oraz ich klasyf
   - `connection_string`: Connection string do Azure AI Search.
   - `index_name`: Nazwa indeksu, który ma zostać utworzony lub użyty.
 - **Zadania**:
-  - Utworzenie klienta indeksu Azure AI Search.
   - Konfiguracja indeksu z odpowiednimi polami, w tym pola typu "filterable" do przechowywania klasyfikacji dokumentów.
+  - Utworzenie klienta indeksu Azure AI Search.
   - Zwrócenie skonfigurowanego klienta indeksu do dalszego użycia.
 
 ```python
@@ -58,7 +58,7 @@ def get_vector_store(connection_string, index_name):
 
 ##### Tips & tricks
 
-- Utwórz model typu embedding ()
+- Utwórz model typu embedding (`text-embedding-3-large`) w Azure OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
 - Użycie [Azure AI Search w langchain](https://python.langchain.com/v0.2/docs/integrations/vectorstores/azuresearch/)
 - [API langchain dla AI Serach](https://api.python.langchain.com/en/latest/vectorstores/langchain_community.vectorstores.azuresearch.AzureSearch.html#langchain_community.vectorstores.azuresearch.AzureSearch)
 - Uwierzytelnianie z wykorzystaniem Azure AD
