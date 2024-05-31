@@ -11,10 +11,12 @@ Po przeprocesowaniu dokumentów, należy je przenieść do odpowiednich kontener
 ## Cele zadania
 
 1. **Konfiguracja indeksu**:
+
    - Stworzenie i skonfigurowanie indeksu w Azure AI Search, który będzie zawierał odpowiednie pola do przechowywania informacji o dokumentach oraz ich klasyfikacji.
    - Dodanie pola typu "filterable" do indeksu, które będzie przechowywało informacje o klasyfikacji dokumentu.
 
 2. **Załadowanie dokumentów i klasyfikacja**:
+
    - Przygotowanie procesu ładowania plików PDF do Azure AI Search.
    - Klasyfikacja każdego dokumentu na podstawie jego treści jako "Dane osobowe", "Prywatny" lub "Publiczny".
    - Zapisanie klasyfikacji w polu typu "filterable" podczas ładowania dokumentów do Azure AI Search.
@@ -30,6 +32,7 @@ Po przeprocesowaniu dokumentów, należy je przenieść do odpowiednich kontener
 Aby zaimplementować proces ładowania danych do Azure AI Search oraz ich klasyfikację, należy wykonać kilka kroków:
 
 1. **Stworzenie i konfiguracja indeksu**:
+
    - Skonfigurować indeks w Azure AI Search z odpowiednimi polami, w tym polem "filterable" do przechowywania klasyfikacji dokumentów.
 
 2. **Ładowanie i klasyfikacja dokumentów**:
@@ -40,6 +43,7 @@ Aby zaimplementować proces ładowania danych do Azure AI Search oraz ich klasyf
 ### Funkcje do zaimplementowania
 
 #### Funkcja `list_blobs`
+
 - **Opis**: Ta funkcja zwraca listę blobów w kontenerze.
 - **Argumenty wejściowe**:
   - `account_name`: Nazwa konta Azure Storage.
@@ -55,10 +59,10 @@ def list_blobs(account_name, container_name, credential):
     pass
 ```
 
-##### Tips & tricks
-
-- [Azure Identity client library for Python](https://learn.microsoft.com/en-us/python/api/overview/azure/identity-readme?view=azure-python#authenticate-with-defaultazurecredential)
-- [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch)
+> [!TIP]
+>
+> - [Azure Identity client library for Python](https://learn.microsoft.com/en-us/python/api/overview/azure/identity-readme?view=azure-python#authenticate-with-defaultazurecredential)
+> - [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch)
 
 #### Funkcja `get_blob_content`
 
@@ -77,11 +81,13 @@ def get_blob_content(account_name, container_name, blob_name, credential):
     # Logika pobierania zawartości bloba
     pass
 ```
-##### Tips & tricks
 
-- [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch#download-blobs)
+> [!TIP]
+>
+> - [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch#download-blobs)
 
 #### Funkcja `save_blob_to_temp_file`
+
 - **Opis**: Ta funkcja zapisuje zawartość bloba do tymczasowego pliku.
 - **Argumenty wejściowe**:
   - `blob_content`: Zawartość bloba.
@@ -95,10 +101,9 @@ def save_blob_to_temp_file(blob_content):
     pass
 ```
 
-##### Tips & tricks
-
-- Użyj gotowej metody `tempfile.NamedTemporaryFile`.
-
+> [!TIP]
+>
+> - Użyj gotowej metody `tempfile.NamedTemporaryFile`.
 
 #### Funkcja `get_file_classification`
 
@@ -117,34 +122,33 @@ def get_file_classification(credential, file_path):
     pass
 ```
 
-##### Tips & tricks
-
-- Użyj [langchain](https://www.langchain.com/)
-- Do pracy musisz wdrozyc model na swojej instacji OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
-- Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce).
-- Do łączenia się z Azure OpenAI użyj uwierzytelniania z Azure AD:
-  
-  ```python
-  token_provider = get_bearer_token_provider(
-    credential, "https://cognitiveservices.azure.com/.default"
-  )
-  llm = AzureChatOpenAI(
-    openai_api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-    azure_deployment=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-    azure_ad_token_provider=token_provider
-  )
-  ```
-
-  - [AzureChatOpenAI](https://python.langchain.com/v0.2/docs/integrations/chat/azure_chat_openai/)
-  - [AzureChatOpenAI Lib](https://api.python.langchain.com/en/latest/chat_models/langchain_openai.chat_models.azure.AzureChatOpenAI.html)
-  - [Azure Active Directory Authentication](https://python.langchain.com/v0.2/docs/integrations/llms/azure_openai/#azure-active-directory-authentication)
-
-- Pisząc prompt dla funkcji Map, poinstruuj, aby LLM dokonał klasyfikacji dokumentów. Podaj, co ma zrobić, jeśli nie będzie wiedział, jak sklasyfikować dokument.
-- Pisząc prompt dla funkcji Reduce, określ kolejność klasyfikacji, czyli która ma najwyższy priorytet.
-- [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering)
-- [Prompt engineering techniques](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions)
-- [System message framework and template recommendations for Large Language Models (LLMs)](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/system-message)
-
+> [!TIP]
+>
+> - Użyj [langchain](https://www.langchain.com/)
+> - Do pracy musisz wdrozyc model na swojej instacji OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
+> - Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce).
+> - Do łączenia się z Azure OpenAI użyj uwierzytelniania z Azure AD:
+>
+> ```python
+>
+> token_provider = get_bearer_token_provider(
+>   credential, "https://cognitiveservices.azure.com/.default"
+> )
+> llm = AzureChatOpenAI(
+>   openai_api_version=os.environ["AZURE_OPENAI_API_VERSION"],
+>   azure_deployment=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+>   azure_ad_token_provider=token_provider
+> )
+> ```
+>
+> - [AzureChatOpenAI](https://python.langchain.com/v0.2/docs/integrations/chat/azure_chat_openai/)
+> - [AzureChatOpenAI Lib](https://api.python.langchain.com/en/latest/chat_models/langchain_openai.chat_models.azure.AzureChatOpenAI.html)
+> - [Azure Active Directory Authentication](https://python.langchain.com/v0.2/docs/integrations/llms/azure_openai/#azure-active-directory-authentication)
+> - Pisząc prompt dla funkcji Map, poinstruuj, aby LLM dokonał klasyfikacji dokumentów. Podaj, co ma zrobić, jeśli nie będzie wiedział, jak sklasyfikować dokument.
+> - Pisząc prompt dla funkcji Reduce, określ kolejność klasyfikacji, czyli która ma najwyższy priorytet.
+> - [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering)
+> - [Prompt engineering techniques](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions)
+> - [System message framework and template recommendations for Large Language Models (LLMs)](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/system-message)
 
 #### Funkcja `add_document_to_vector_store`
 
@@ -198,7 +202,7 @@ STORAGE_ACCOUNT_NAME=""
 STORAGE_CONTAINER_NAME_IN="data-in"
 AZURE_OPENAI_API_VERSION='2023-12-01-preview' # Default is set!
 AZURE_OPENAI_ENDPOINT=""
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME="" 
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=""
 AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT=""
 AZURE_AI_SEARCH_ENDPOINT=""
 ```
