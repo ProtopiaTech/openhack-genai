@@ -192,7 +192,7 @@ def get_blob_content(account_name, container_name, blob_name, credential):
 ```
 ##### Tips & tricks
 
-- [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch#download-blobs)
+- [Quickstart: Azure Blob Storage client library for Python](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli&pivots=blob-storage-quickstart-scratch)
 
 #### Funkcja `save_blob_to_temp_file`
 - **Opis**: Ta funkcja zapisuje zawartość bloba do tymczasowego pliku.
@@ -232,7 +232,7 @@ def get_file_classification(credential, file_path):
 ##### Tips & tricks
 
 - Użyj [langchain](https://www.langchain.com/)
-- Do pracy musisz wdrozyc model na swojej instacji OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
+- Do pracy musisz wdrożyć model na swojej instacji OpenAI - [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal#deploy-a-model).
 - Skorzystaj z Summarize w LangChain z podejściem Map-Reduce - [link](https://python.langchain.com/v0.2/docs/tutorials/summarization/#map-reduce).
 - Ładowanie PDF w LangChain - [How to load PDFs - Using PyPDF](https://python.langchain.com/v0.2/docs/how_to/document_loader_pdf/#using-pypdf). Ładując zamist `pages` użyj zmiennej `docs`.
 - Do łączenia się z Azure OpenAI użyj uwierzytelniania z Azure AD:
