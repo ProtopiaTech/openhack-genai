@@ -2,8 +2,6 @@
 
 # [OpenHack] Bezpieczne tworzenie aplikacji GenAI by Protopia
 
-## 🌱 Rozpoczęcie pracy
-
 ## 🗃️ Zadania
 
 0️⃣ [Przygotowanie środowiska](00-course-setup/README.md)
@@ -16,3 +14,4 @@
 
 4️⃣ [Zadanie 4: Dodanie uwierzytelnienia do aplikacji chatbota z wykorzystaniem Entra ID (Azure AD)](04-chatbot-authn/README.md)
 
+5️⃣ [Zadanie 5: Rozszerzenie aplikacji o obsługę Security Filters](05-chatbot-authz/README.md)

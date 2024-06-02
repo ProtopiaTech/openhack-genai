@@ -39,7 +39,7 @@ To zadanie jest kontynuacją rozszerzania aplikacji chatbot. Twoim zadaniem jest
 
 #### Krok 4: Dodanie group claim
 
-1. W sekcji `Token configuration` dodaj group claim i zaznacz `Security groups`.
+1. W sekcji `Token configuration` dodaj group claim i zaznacz `Security groups`. Na każdej grupie zaznacz opcję `Emit groups as role claims`.
 
 #### Krok 5: Dodanie uprawnień API
 
