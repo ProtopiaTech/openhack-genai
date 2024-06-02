@@ -80,6 +80,58 @@ Do wdrażania aplikacji możesz użyć następujących poleceń:
    az webapp deploy --resource-group $RESOURCE_GROUP --name $WEBAPP_NAME --src-path myapp.zip
    ```
 
+### Ładowanie zmiennych we Flask
+
+Kiedy pracujesz z Flask i potrzebujesz załadować zmienne środowiskowe za pomocą `loadenv`, możesz skorzystać z kontekstu aplikacji za pomocą `with app.app_context():`. To zapewnia, że wszystkie operacje wykonywane wewnątrz bloku będą miały dostęp do kontekstu aplikacji, co jest niezbędne dla niektórych operacji.
+
+[Flask - The Application Context](https://flask.palletsprojects.com/en/3.0.x/appcontext/)
+
+#### Do czego służy `app.app_context()`?
+
+`app.app_context()` jest używane do stworzenia kontekstu aplikacji, który umożliwia dostęp do zmiennych konfiguracyjnych, ustawień aplikacji i innych zasobów, które są przechowywane w instancji aplikacji Flask. Jest to szczególnie przydatne w sytuacjach, gdy musisz wykonać operacje na aplikacji poza kontekstem żądania HTTP.
+
+#### Przykład użycia `with app.app_context():`
+
+Oto przykładowy kod pokazujący, jak można użyć `with app.app_context():` do załadowania zmiennych środowiskowych za pomocą `loadenv` i użycia ich w prostym endpointzie:
+
+```python
+from flask import Flask, jsonify
+from dotenv import load_dotenv
+import os
+
+# Załaduj zmienne środowiskowe z pliku .env
+load_dotenv()
+
+app = Flask(__name__)
+
+# Funkcja do załadowania zmiennych konfiguracyjnych
+def load_config():
+    app.config['MY_VARIABLE'] = os.getenv('MY_VARIABLE')
+
+# Użycie app.app_context() do załadowania zmiennych środowiskowych
+with app.app_context():
+    load_config()
+
+# Prosty endpoint używający zmiennej konfiguracyjnej
+@app.route('/get-variable', methods=['GET'])
+def get_variable():
+    return jsonify({"MY_VARIABLE": app.config['MY_VARIABLE']})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+
+W powyższym przykładzie:
+
+1. Używamy `load_dotenv()` do załadowania zmiennych środowiskowych z pliku `.env`.
+2. Tworzymy instancję aplikacji Flask.
+3. Definiujemy funkcję `load_config()`, która pobiera zmienną środowiskową `MY_VARIABLE` i ustawia ją w konfiguracji aplikacji Flask.
+4. Używamy `with app.app_context():` do stworzenia kontekstu aplikacji i załadowania zmiennych środowiskowych za pomocą funkcji `load_config()`.
+5. Definiujemy prosty endpoint `/get-variable`, który zwraca wartość zmiennej konfiguracyjnej `MY_VARIABLE`.
+6. Uruchamiamy aplikację Flask.
+
+Dzięki temu podejściu możemy bezpiecznie i efektywnie zarządzać zasobami aplikacji Flask, nawet poza kontekstem żądania HTTP.
+
 ## Jak można to zaimplementować?
 
 > ## Użyj [langchain](https://www.langchain.com/) do realizacji zadania
