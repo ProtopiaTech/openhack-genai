@@ -270,6 +270,8 @@ def move_blob(account_name, container_name, data_classification, blob_name, cred
 
 Do wgrywania danych do Azure Storage można użyć skryptu `upload.sh`. Skrypt ten automatycznie przesyła pliki z lokalnego katalogu do odpowiednich kontenerów w Azure Storage, zgodnie z klasyfikacją dokumentów. Upewnij się, że masz zainstalowane narzędzie Azure CLI i zaloguj się do swojego konta Azure przed uruchomieniem skryptu.
 
+‼️ Zmień nazwę pliku `template.env` na `.env` w katalogu `src` i uzupełnij konfigurację.
+
 ### Przykładowy plik .env
 
 Przykładowy plik `.env` powinien zawierać następujące informacje:
