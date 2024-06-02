@@ -1,11 +1,3 @@
-- [Przygotowanie środowiska pracy](#przygotowanie-środowiska-pracy)
-  - [1. Fork repozytrium](#1-fork-repozytrium)
-  - [2. Uruchomienie Codespaces](#2-uruchomienie-codespaces)
-  - [3. Logowanie do Azure](#3-logowanie-do-azure)
-  - [4. Stwórz instancje usługi Azure OpenAI](#4-stwórz-instancje-usługi-azure-openai)
-  - [5. Stworz konto Azure Storgae](#5-stworz-konto-azure-storgae)
-  - [6. Stwórz instancję usługi Azure AI Search](#6-stwórz-instancję-usługi-azure-ai-search)
-
 # Przygotowanie środowiska pracy
 
 Całość zadań będzie realizowana w opaerciu o Github Codespaces oraz narzędzia Azure. W calu przygotowania środowiska pracy wykonaj następujące kroki:
