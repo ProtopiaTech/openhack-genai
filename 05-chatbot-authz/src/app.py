@@ -10,12 +10,6 @@ from langchain_openai import AzureOpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from azure.search.documents.indexes.models import (
-    SearchableField,
-    SearchField,
-    SearchFieldDataType,
-    SimpleField,
-)
 
 def serialize_error_details(e):
     error_details = {}
@@ -27,51 +21,8 @@ def serialize_error_details(e):
             error_details[key] = str(value)  # Convert non-serializable values to strings
     return error_details
 
-def get_vector_store(credential, index_name):
-    token_provider = get_bearer_token_provider(
-        credential, "https://cognitiveservices.azure.com/.default"
-    )
-
-    # Define embedding model
-    embeddings: AzureOpenAIEmbeddings = AzureOpenAIEmbeddings(
-        azure_deployment=os.getenv("AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT"),
-        openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
-        azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-        azure_ad_token_provider=token_provider
-    )
-
-    # Define the Azure Search vector store
-    vector_store: AzureSearch = AzureSearch(
-        azure_search_endpoint=os.getenv("AZURE_AI_SEARCH_ENDPOINT"),
-        azure_search_key=None,
-        index_name=index_name,
-        embedding_function=embeddings.embed_query,
-    )
-    return vector_store
-
-# Get Azure credentials
 app = Flask(__name__)
 
-with app.app_context():
-   load_dotenv()
-   PUBLIC_GROUP_ID = os.environ["PUBLIC_GROUP_ID"]
-   PRIVATE_GROUP_ID = os.environ["PRIVATE_GROUP_ID"]
-   PERSONAL_DATA_GROUP_ID = os.environ["PERSONAL_DATA_GROUP_ID"]
-   ROLES_MAPPING = {
-       PUBLIC_GROUP_ID: "public",
-       PRIVATE_GROUP_ID: "private",
-       PERSONAL_DATA_GROUP_ID: "personal-data"
-   }
-   credential = DefaultAzureCredential()
-   token_provider = get_bearer_token_provider(
-       credential, "https://cognitiveservices.azure.com/.default"
-   )
-   global llm
-   llm = AzureChatOpenAI(
-       openai_api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-       azure_deployment=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-       azure_ad_token_provider=token_provider
-   )
 
 @app.errorhandler(AuthError)
 def handle_auth_error(ex):
@@ -86,7 +37,7 @@ def index():
     return render_template('index.html', client_id=client_id, tenant_id=tenant_id)
 
 @app.route('/chat', methods=['POST'])
-@requires_jwt_authorization(roles=[PERSONAL_DATA_GROUP_ID], roles_mapping=ROLES_MAPPING)
+@requires_jwt_authorization(roles=None, roles_mapping=None)
 def chat(roles):
     print(roles)
     if request.is_json:
