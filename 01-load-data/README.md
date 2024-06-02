@@ -86,7 +86,10 @@ print(storage_account_name, search_service_name)
 
 ## Jak można to zaimplementować?
 
+> ## Kod ładujący dokumenty i klasyfikujący może być uruchamiany lokalnie z GitHub Codespace.
+> 
 > ## Użyj  [langchain](https://www.langchain.com/) do realizacji zadania
+
 
 ### Logika główna
 
