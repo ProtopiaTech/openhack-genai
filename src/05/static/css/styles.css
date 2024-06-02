@@ -1,0 +1,33 @@
+@keyframes typing {
+    0% {
+        content: '.';
+    }
+    33% {
+        content: '..';
+    }
+    66% {
+        content: '...';
+    }
+    100% {
+        content: '';
+    }
+}
+
+.typing::after {
+    content: '';
+    animation: typing 1s steps(3, end) infinite;
+}
+
+.button-disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.json-display {
+    white-space: pre-wrap; /* Ensure the whitespace and new lines are respected */
+    font-family: monospace; /* Use a monospaced font for better readability */
+    background-color: #f4f4f4; /* Light gray background for better visibility */
+    padding: 10px; /* Padding for better readability */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ddd; /* Border for better separation */
+}

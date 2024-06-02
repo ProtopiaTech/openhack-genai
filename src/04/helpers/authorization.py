@@ -89,10 +89,9 @@ def requires_jwt_authorization(roles=None, roles_mapping=None):
                     if roles:
                         if not check_roles(roles, payload):
                             raise AuthError({"code": "unauthorized", "description": "User does not have required roles"}, 401)
-
                     if roles_mapping:
-                        # return name of roles instead of ids that are in token
-                        mapped_roles = [roles_mapping[role_id] for role_id in payload.get("roles", []) if role_id in roles and role_id in roles_mapping]
+                        role_ids = payload.get("roles", [])
+                        mapped_roles = [roles_mapping[role_id] for role_id in role_ids if role_id in roles_mapping]
                         return f(*args, roles=mapped_roles, **kwargs)
                     else:
                         return f(*args, roles=payload.get("roles", []), **kwargs)
@@ -101,6 +100,9 @@ def requires_jwt_authorization(roles=None, roles_mapping=None):
                 except jwt.JWTClaimsError as jwt_claims_exc:
                     raise AuthError({"code": "invalid_claims", "description": "incorrect claims, please check the audience and issuer"}, 401) from jwt_claims_exc
                 except Exception as exc:
+                    if isinstance(exc, AuthError):
+                        raise exc
+                    print(exc)
                     raise AuthError({"code": "invalid_header", "description": "Unable to parse authorization token."}, 401) from exc
             
             raise AuthError({"code": "invalid_header", "description": "Unable to find appropriate key"}, 401)
