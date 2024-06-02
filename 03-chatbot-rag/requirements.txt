@@ -1,0 +1,9 @@
+azure-identity
+langchain
+langchain-core
+langchain-community
+python-dotenv
+langchain-openai
+Flask
+gunicorn
+Werkzeug

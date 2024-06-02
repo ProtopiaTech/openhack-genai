@@ -12,4 +12,4 @@
 
 2️⃣ [Tworzenie prostego chatbota z wykorzystaniem Azure OpenAI i LangChain](02-chatbot/README.md)
 
-3️⃣ [Rozszerzenie Chatbota o odpytywanie API](03-api-call/README.md)
+3️⃣ [Zadanie 3: Rozszerzenie Chatbota o RAG](03-chatbot-rag/README.md)
