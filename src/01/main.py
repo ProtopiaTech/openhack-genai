@@ -213,7 +213,8 @@ if __name__ == "__main__":
     account_name = os.getenv("STORAGE_ACCOUNT_NAME")
     container_name = os.getenv("STORAGE_CONTAINER_NAME_IN")
     credential = DefaultAzureCredential()
-    vector_store = get_vector_store(credential, "test111")
+    index_name = os.getenv("INDEX_NAME")
+    vector_store = get_vector_store(credential, "index_name")
     blobs = list_blobs(account_name, container_name, credential)
     for blob in blobs:
         blob_content = get_blob_content(account_name, container_name, blob.name, credential)
