@@ -30,7 +30,7 @@ Nie zamykaj okna Terminalu i przejdź do następnego kroku.
 Sprawdź nazwę grupy zasobów, na której będziesz wykonywać wdrożenie:
 
 ```bash
-az group list
+az group list -o table
 ```
 
 Nazwę grupy zasobów znajdziesz w polu "name" w wyświetlonym JSON. Wykonaj następujące kroki w Terminalu:
@@ -92,7 +92,7 @@ az storage container create \
 
 ## 6. Stwórz instancję usługi Azure AI Search
 
-Stwórz instancję Azure AI Search w oparciu o poniższy skrypt.
+Stwórz instancję Azure AI Search w oparciu o poniższy skrypt. To może zająć kilka minut.
 
 ```bash
 az search service create \

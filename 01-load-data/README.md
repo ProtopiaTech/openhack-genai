@@ -8,11 +8,47 @@ Podczas klasyfikacji użyj angielskich nazw w formacie przyjaznym dla programowa
 
 Po przeprocesowaniu dokumentów, należy je przenieść do odpowiednich kontenerów: `personal-data`, `private` lub `public`, w celu archiwizacji lub dalszego przetwarzania. Upewnij się, że te kontenery zostały utworzone przed rozpoczęciem procesu.
 
+## Przydatne informacje
+
+### Skrypt upload.sh
+
+Do wgrywania danych do Azure Storage można użyć skryptu `upload.sh`. Skrypt ten automatycznie przesyła pliki z lokalnego katalogu do odpowiednich kontenerów w Azure Storage, zgodnie z klasyfikacją dokumentów. Upewnij się, że masz zainstalowane narzędzie Azure CLI i zaloguj się do swojego konta Azure przed uruchomieniem skryptu.
+
+### Przykładowy plik .env
+
+Przykładowy plik `.env` powinien zawierać następujące informacje:
+
+```bash
+STORAGE_ACCOUNT_NAME=""
+STORAGE_CONTAINER_NAME_IN="data-in"
+AZURE_OPENAI_API_VERSION="2023-12-01-preview"
+AZURE_OPENAI_ENDPOINT=""
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME="" 
+AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT=""
+AZURE_AI_SEARCH_ENDPOINT=""
+```
+
+Uzupełnij go swoimi wartościami ze środowsika.
+
+Aby załadować zmienne środowiskowe z pliku `.env` w Pythonie, możesz użyć biblioteki `python-dotenv`. Oto przykład kodu:
+
+```python
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+storage_account_name = os.getenv('AZURE_STORAGE_ACCOUNT')
+search_service_name = os.getenv('AZURE_AI_SEARCH_ENDPOINT')
+
+print(storage_account_name, search_service_name)
+```
+
 ## Cele zadania
 
 1. **Konfiguracja indeksu**:
    - Stworzenie i skonfigurowanie indeksu w Azure AI Search, który będzie zawierał odpowiednie pola do przechowywania informacji o dokumentach oraz ich klasyfikacji.
-   - Dodanie pola typu "filterable" do indeksu, które będzie przechowywało informacje o klasyfikacji dokumentu.
+   - Dodanie pola typu `filterable` do indeksu, które będzie przechowywało informacje o klasyfikacji dokumentu.
 
 2. **Załadowanie dokumentów i klasyfikacja**:
    - Przygotowanie procesu ładowania plików PDF do Azure AI Search.
@@ -32,7 +68,7 @@ Po przeprocesowaniu dokumentów, należy je przenieść do odpowiednich kontener
 Aby zaimplementować proces ładowania danych do Azure AI Search oraz ich klasyfikację, należy wykonać kilka kroków:
 
 1. **Stworzenie i konfiguracja indeksu**:
-   - Skonfigurować indeks w Azure AI Search z odpowiednimi polami, w tym polem "filterable" do przechowywania klasyfikacji dokumentów.
+   - Skonfigurować indeks w Azure AI Search z odpowiednimi polami, w tym polem `filterable` do przechowywania klasyfikacji dokumentów.
 
 2. **Ładowanie i klasyfikacja dokumentów**:
    - Przygotować proces ładowania plików PDF do Azure AI Search.
@@ -263,6 +299,7 @@ def move_blob(account_name, container_name, data_classification, blob_name, cred
     raise Exception(f"Copy failed with status: {props.copy.status}")
   source_blob_client.delete_blob()
   ```
+<<<<<<< HEAD
 
 ## Przydatne informacje
 
@@ -302,3 +339,5 @@ search_service_endpoint = os.getenv('AZURE_AI_SEARCH_ENDPOINT')
 
 print(storage_account_name, search_service_name)
 ```
+=======
+>>>>>>> df1d20a (Minor changes in order)
