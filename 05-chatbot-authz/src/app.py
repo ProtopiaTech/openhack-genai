@@ -96,35 +96,9 @@ def chat(roles):
         print(message)
         if message:
             try:
-                system_prompt = (
-                        "You are an assistant for question-answering tasks. "
-                        "Use the following pieces of retrieved context to answer "
-                        "the question. If you don't know the answer, say that you "
-                        "don't know. Use three sentences maximum and keep the "
-                        "answer concise."
-                        "\n\n"
-                        "{context}"
-                  )
-                prompt = ChatPromptTemplate.from_messages([
-                    ("system", system_prompt),
-                    ("human", "{input}"),
-                ])
-                vector_store = get_vector_store(credential, os.getenv("INDEX_NAME"))
-                filter_query = " or ".join([f"data_classification eq '{role}'" for role in roles])
-                print(filter_query)
-                retriever = vector_store.as_retriever(
-                    search_type="hybrid",
-                    search_kwargs={
-                        "filters": filter_query
-                    }
-                )
-                print(f'retriever search_type: {retriever.search_type}')
-                question_answer_chain = create_stuff_documents_chain(llm, prompt)
-                rag_chain = create_retrieval_chain(retriever, question_answer_chain)
-                response = rag_chain.invoke({"input": message})
-                print(response)
                 return jsonify({
-                    'content': response["answer"],
+                    'content': message,
+                    'response_metadata': roles
                 }), 200
             except Exception as e:
                 print(e)
