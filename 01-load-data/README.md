@@ -282,9 +282,10 @@ AZURE_OPENAI_ENDPOINT=""
 AZURE_OPENAI_CHAT_DEPLOYMENT_NAME="" 
 AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT=""
 AZURE_AI_SEARCH_ENDPOINT=""
+INDEX_NAME=""
 ```
 
-Uzupełnij go swoimi wartościami ze środowsika.
+Uzupełnij go swoimi wartościami ze środowsika. Szablon pliku znajdziesz w `src/template.env`
 
 Aby załadować zmienne środowiskowe z pliku `.env` w Pythonie, możesz użyć biblioteki `python-dotenv`. Oto przykład kodu:
 
@@ -295,7 +296,7 @@ import os
 load_dotenv()
 
 storage_account_name = os.getenv('AZURE_STORAGE_ACCOUNT')
-search_service_name = os.getenv('AZURE_AI_SEARCH_ENDPOINT')
+search_service_endpoint = os.getenv('AZURE_AI_SEARCH_ENDPOINT')
 
 print(storage_account_name, search_service_name)
 ```
