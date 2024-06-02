@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/flask,node,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask,node,visualstudiocode
 
+draft
+
 ### Flask ###
 instance/*
 !instance/.gitignore
