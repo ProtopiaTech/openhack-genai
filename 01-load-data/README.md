@@ -1,28 +1,3 @@
-
-- [Zadanie 1: Ładowanie danych i ich klasyfikacja](#zadanie-1-ładowanie-danych-i-ich-klasyfikacja)
-  - [Opis](#opis)
-  - [Przydatne informacje](#przydatne-informacje)
-    - [Skrypt upload.sh](#skrypt-uploadsh)
-    - [Przykładowy plik .env](#przykładowy-plik-env)
-  - [Cele zadania](#cele-zadania)
-  - [Jak można to zaimplementować?](#jak-można-to-zaimplementować)
-    - [Logika główna](#logika-główna)
-    - [Funkcje do zaimplementowania](#funkcje-do-zaimplementowania)
-      - [Funkcja `get_vector_store`](#funkcja-get_vector_store)
-        - [Tips \& tricks](#tips--tricks)
-      - [Funkcja `list_blobs`](#funkcja-list_blobs)
-        - [Tips \& tricks](#tips--tricks-1)
-      - [Funkcja `get_blob_content`](#funkcja-get_blob_content)
-        - [Tips \& tricks](#tips--tricks-2)
-      - [Funkcja `save_blob_to_temp_file`](#funkcja-save_blob_to_temp_file)
-        - [Tips \& tricks](#tips--tricks-3)
-      - [Funkcja `get_file_classification`](#funkcja-get_file_classification)
-        - [Tips \& tricks](#tips--tricks-4)
-      - [Funkcja `add_document_to_vector_store`](#funkcja-add_document_to_vector_store)
-        - [Tips \& tricks](#tips--tricks-5)
-      - [Funkcja `move_blob`](#funkcja-move_blob)
-      - [Tips \& tricks](#tips--tricks-6)
-
 # Zadanie 1: Ładowanie danych i ich klasyfikacja
 
 ## Opis
@@ -38,6 +13,14 @@ Po przeprocesowaniu dokumentów, należy je przenieść do odpowiednich kontener
 ### Skrypt upload.sh
 
 Do wgrywania danych do Azure Storage można użyć skryptu `upload.sh`. Skrypt ten automatycznie przesyła pliki z lokalnego katalogu do odpowiednich kontenerów w Azure Storage, zgodnie z klasyfikacją dokumentów. Upewnij się, że masz zainstalowane narzędzie Azure CLI i zaloguj się do swojego konta Azure przed uruchomieniem skryptu.
+
+### Przykładowa struktura skryptu
+
+W katalogu zadania znajduje się **przykładowa** struktura kodu w pliku `main.py`.
+
+Funkcja `__main__` zawiera przykładową kolejność wywołań niżej opisanych funkcji.
+
+**Nie musisz korzystać z tego pliku. Jest tylko wskazówką.**
 
 ### Przykładowy plik .env
 
