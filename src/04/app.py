@@ -72,8 +72,7 @@ def index():
 
 @app.route('/chat', methods=['POST'])
 @requires_jwt_authorization()
-def chat(roles):
-    print(roles)
+def chat():
     if request.is_json:
         data = request.get_json()
         print(data)
