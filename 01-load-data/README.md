@@ -1,3 +1,28 @@
+
+- [Zadanie 1: Ładowanie danych i ich klasyfikacja](#zadanie-1-ładowanie-danych-i-ich-klasyfikacja)
+  - [Opis](#opis)
+  - [Przydatne informacje](#przydatne-informacje)
+    - [Skrypt upload.sh](#skrypt-uploadsh)
+    - [Przykładowy plik .env](#przykładowy-plik-env)
+  - [Cele zadania](#cele-zadania)
+  - [Jak można to zaimplementować?](#jak-można-to-zaimplementować)
+    - [Logika główna](#logika-główna)
+    - [Funkcje do zaimplementowania](#funkcje-do-zaimplementowania)
+      - [Funkcja `get_vector_store`](#funkcja-get_vector_store)
+        - [Tips \& tricks](#tips--tricks)
+      - [Funkcja `list_blobs`](#funkcja-list_blobs)
+        - [Tips \& tricks](#tips--tricks-1)
+      - [Funkcja `get_blob_content`](#funkcja-get_blob_content)
+        - [Tips \& tricks](#tips--tricks-2)
+      - [Funkcja `save_blob_to_temp_file`](#funkcja-save_blob_to_temp_file)
+        - [Tips \& tricks](#tips--tricks-3)
+      - [Funkcja `get_file_classification`](#funkcja-get_file_classification)
+        - [Tips \& tricks](#tips--tricks-4)
+      - [Funkcja `add_document_to_vector_store`](#funkcja-add_document_to_vector_store)
+        - [Tips \& tricks](#tips--tricks-5)
+      - [Funkcja `move_blob`](#funkcja-move_blob)
+      - [Tips \& tricks](#tips--tricks-6)
+
 # Zadanie 1: Ładowanie danych i ich klasyfikacja
 
 ## Opis
@@ -299,45 +324,3 @@ def move_blob(account_name, container_name, data_classification, blob_name, cred
     raise Exception(f"Copy failed with status: {props.copy.status}")
   source_blob_client.delete_blob()
   ```
-<<<<<<< HEAD
-
-## Przydatne informacje
-
-### Skrypt upload.sh
-
-Do wgrywania danych do Azure Storage można użyć skryptu `upload.sh`. Skrypt ten automatycznie przesyła pliki z lokalnego katalogu do odpowiednich kontenerów w Azure Storage, zgodnie z klasyfikacją dokumentów. Upewnij się, że masz zainstalowane narzędzie Azure CLI i zaloguj się do swojego konta Azure przed uruchomieniem skryptu.
-
-‼️ Zmień nazwę pliku `template.env` na `.env` w katalogu `src` i uzupełnij konfigurację.
-
-### Przykładowy plik .env
-
-Przykładowy plik `.env` powinien zawierać następujące informacje:
-
-```bash
-STORAGE_ACCOUNT_NAME=""
-STORAGE_CONTAINER_NAME_IN="data-in"
-AZURE_OPENAI_API_VERSION="2023-12-01-preview"
-AZURE_OPENAI_ENDPOINT=""
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME="" 
-AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT=""
-AZURE_AI_SEARCH_ENDPOINT=""
-INDEX_NAME=""
-```
-
-Uzupełnij go swoimi wartościami ze środowsika. Szablon pliku znajdziesz w `src/template.env`
-
-Aby załadować zmienne środowiskowe z pliku `.env` w Pythonie, możesz użyć biblioteki `python-dotenv`. Oto przykład kodu:
-
-```python
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-storage_account_name = os.getenv('AZURE_STORAGE_ACCOUNT')
-search_service_endpoint = os.getenv('AZURE_AI_SEARCH_ENDPOINT')
-
-print(storage_account_name, search_service_name)
-```
-=======
->>>>>>> df1d20a (Minor changes in order)
