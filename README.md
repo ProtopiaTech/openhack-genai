@@ -10,8 +10,8 @@
 
 2️⃣ [Tworzenie prostego chatbota z wykorzystaniem Azure OpenAI i LangChain](02-chatbot/README.md)
 
-3️⃣ [Zadanie 3: Rozszerzenie Chatbota o RAG](03-chatbot-rag/README.md)
+3️⃣ [Rozszerzenie Chatbota o RAG](03-chatbot-rag/README.md)
 
-4️⃣ [Zadanie 4: Dodanie uwierzytelnienia do aplikacji chatbota z wykorzystaniem Entra ID (Azure AD)](04-chatbot-authn/README.md)
+4️⃣ [Dodanie uwierzytelnienia do aplikacji chatbota z wykorzystaniem Entra ID (Azure AD)](04-chatbot-authn/README.md)
 
-5️⃣ [Zadanie 5: Rozszerzenie aplikacji o obsługę Security Filters](05-chatbot-authz/README.md)
+5️⃣ [Rozszerzenie aplikacji o obsługę Security Filters](05-chatbot-authz/README.md)
